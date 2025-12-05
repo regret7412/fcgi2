@@ -34,10 +34,9 @@ jobs:
       with:
         name: libfcgi-linux-binaries
         path: |
-          libfcgi/.libs/*.a
-          libfcgi/.libs/*.so*
-          libfcgi/.libs/*.lai
-          examples/.libs/*
+          **/*.a
+          **/*.so*
+          **/*.la
         if-no-files-found: warn
 
   build-windows:
