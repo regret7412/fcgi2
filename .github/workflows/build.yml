@@ -29,6 +29,16 @@ jobs:
     - name: perl module - make test 
       working-directory: perl
       run: make test
+    - name: Upload Artifacts (Linux)
+      uses: actions/upload-artifact@v4
+      with:
+        name: libfcgi-linux-binaries
+        path: |
+          libfcgi/.libs/*.a
+          libfcgi/.libs/*.so*
+          libfcgi/.libs/*.lai
+          examples/.libs/*
+        if-no-files-found: warn
 
   build-windows:
     runs-on: windows-2022
@@ -45,12 +55,13 @@ jobs:
         arch: ${{ matrix.arch }}
     - name: build with nmake
       run: nmake -f Makefile.nt
-    - name: Upload Artifacts (x64)
+    - name: Upload Artifacts (Windows)
       uses: actions/upload-artifact@v4
       with:
-        name: libfcgi-x64-binaries
+        name: libfcgi-windows-${{ matrix.arch }}-binaries
         path: |
           **/*.lib
           **/*.dll
           **/*.exe
+          **/*.pdb
         if-no-files-found: warn
